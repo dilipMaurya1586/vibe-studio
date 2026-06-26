@@ -1,4 +1,5 @@
 package com.vibe_studio.vibe_studio.enums;
 
-public class MessageRole {
+public enum MessageRole {
+    USER, ASSISTANT, SYSTEM, TOOL
 }

@@ -1,4 +1,12 @@
 package com.vibe_studio.vibe_studio.dto.project;
 
-public class ProjectSummaryResponse {
+import java.time.Instant;
+
+public record ProjectSummaryResponse(
+        Long id,
+        String name,
+        Instant createdAt,
+        Instant updatedAt
+) {
+
 }

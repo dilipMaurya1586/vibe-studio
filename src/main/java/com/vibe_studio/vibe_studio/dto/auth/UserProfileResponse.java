@@ -1,4 +1,9 @@
 package com.vibe_studio.vibe_studio.dto.auth;
 
-public record UserProfileResponse() {
+public record UserProfileResponse(
+        Long id,
+        String email,
+        String name,
+        String avatarUrl
+) {
 }

@@ -1,0 +1,330 @@
+warning: in the working copy of 'src/main/resources/application.yaml', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/src/main/java/com/vibe_studio/vibe_studio/controller/AuthController.java b/src/main/java/com/vibe_studio/vibe_studio/controller/AuthController.java[m
+[1mindex ab62f07..8889ad1 100644[m
+[1m--- a/src/main/java/com/vibe_studio/vibe_studio/controller/AuthController.java[m
+[1m+++ b/src/main/java/com/vibe_studio/vibe_studio/controller/AuthController.java[m
+[36m@@ -1,4 +1,42 @@[m
+ package com.vibe_studio.vibe_studio.controller;[m
+ [m
+[31m-public class authController {[m
+[32m+[m
+[32m+[m[32mimport com.vibe_studio.vibe_studio.dto.auth.AuthResponse;[m
+[32m+[m[32mimport com.vibe_studio.vibe_studio.dto.auth.LoginRequest;[m
+[32m+[m[32mimport com.vibe_studio.vibe_studio.dto.auth.SignupRequest;[m
+[32m+[m[32mimport com.vibe_studio.vibe_studio.dto.auth.UserProfileResponse;[m
+[32m+[m[32mimport com.vibe_studio.vibe_studio.service.AuthService;[m
+[32m+[m[32mimport com.vibe_studio.vibe_studio.service.UserService;[m
+[32m+[m[32mimport lombok.RequiredArgsConstructor;[m
+[32m+[m[32mimport org.springframework.http.ResponseEntity;[m
+[32m+[m[32mimport org.springframework.web.bind.annotation.GetMapping;[m
+[32m+[m[32mimport org.springframework.web.bind.annotation.PostMapping;[m
+[32m+[m[32mimport org.springframework.web.bind.annotation.RequestMapping;[m
+[32m+[m[32mimport org.springframework.web.bind.annotation.RestController;[m
+[32m+[m
+[32m+[m[32m@RestController[m
+[32m+[m[32m@RequiredArgsConstructor[m
+[32m+[m[32m@RequestMapping("/api/auth")[m
+[32m+[m
+[32m+[m[32mpublic class AuthController {[m
+[32m+[m
+[32m+[m[32m    private AuthService authService;[m
+[32m+[m[32m    private UserService userService;[m
+[32m+[m
+[32m+[m[32m    @PostMapping("/signup")[m
+[32m+[m[32m    public ResponseEntity<AuthResponse>signup(SignupRequest request) {[m
+[32m+[m[32m        return ResponseEntity.ok(authService.signup(request));[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    @PostMapping("/login")[m
+[32m+[m[32m    public ResponseEntity<AuthResponse>login(LoginRequest request) {[m
+[32m+[m[32m        return ResponseEntity.ok(authService.login(request));[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    @GetMapping("/me")[m
+[32m+[m[32m    public ResponseEntity<UserProfileResponse> getProfile() {[m
+[32m+[m[32m        Long userId = 1L;[m
+[32m+[m[32m        return ResponseEntity.ok(userService.getProfile(userId));[m
+[32m+[m[32m    }[m
+[32m+[m
+ }[m
+[1mdiff --git a/src/main/java/com/vibe_studio/vibe_studio/controller/FileController.java b/src/main/java/com/vibe_studio/vibe_studio/controller/FileController.java[m
+[1mindex baced3c..5c3c9d7 100644[m
+[1m--- a/src/main/java/com/vibe_studio/vibe_studio/controller/FileController.java[m
+[1m+++ b/src/main/java/com/vibe_studio/vibe_studio/controller/FileController.java[m
+[36m@@ -1,4 +1,38 @@[m
+ package com.vibe_studio.vibe_studio.controller;[m
+ [m
+[32m+[m[32mimport com.vibe_studio.vibe_studio.dto.project.FileContentResponse;[m
+[32m+[m[32mimport com.vibe_studio.vibe_studio.dto.project.FileNode;[m
+[32m+[m[32mimport com.vibe_studio.vibe_studio.service.FileService;[m
+[32m+[m[32mimport lombok.RequiredArgsConstructor;[m
+[32m+[m[32mimport org.springframework.http.ResponseEntity;[m
+[32m+[m[32mimport org.springframework.web.bind.annotation.GetMapping;[m
+[32m+[m[32mimport org.springframework.web.bind.annotation.PathVariable;[m
+[32m+[m[32mimport org.springframework.web.bind.annotation.RequestMapping;[m
+[32m+[m[32mimport org.springframework.web.bind.annotation.RestController;[m
+[32m+[m
+[32m+[m[32mimport java.util.List;[m
+[32m+[m
+[32m+[m[32m@RestController[m
+[32m+[m[32m@RequiredArgsConstructor[m
+[32m+[m[32m@RequestMapping("/api/projects/{projectId}/files")[m
+[32m+[m
+ public class FileController {[m
+[32m+[m
+[32m+[m[32m    private final FileService fileService;[m
+[32m+[m
+[32m+[m[32m    @GetMapping[m
+[32m+[m[32m    public ResponseEntity<List<FileNode>> getFileTree(@PathVariable Long projectId) {[m
+[32m+[m[32m        Long userId = 1L;[m
+[32m+[m[32m        return ResponseEntity.ok(fileService.getFileTree(projectId, userId));[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    @GetMapping("/{*path}") // /src/hooks/get-user-hook.jsx[m
+[32m+[m[32m    public ResponseEntity<FileContentResponse> getFile([m
+[32m+[m[32m            @PathVariable Long projectId,[m
+[32m+[m[32m            @PathVariable String path[m
+[32m+[m[32m    ) {[m
+[32m+[m[32m        Long userId = 1L;[m
+[32m+[m[32m        return ResponseEntity.ok(fileService.getFileContent(projectId, path, userId));[m
+[32m+[m[32m    }[m
+[32m+[m
+ }[m
+[1mdiff --git a/src/main/java/com/vibe_studio/vibe_studio/controller/ProjectController.java b/src/main/java/com/vibe_studio/vibe_studio/controller/ProjectController.java[m
+[1mindex 5f10df3..4ec358e 100644[m
+[1m--- a/src/main/java/com/vibe_studio/vibe_studio/controller/ProjectController.java[m
+[1m+++ b/src/main/java/com/vibe_studio/vibe_studio/controller/ProjectController.java[m
+[36m@@ -1,4 +1,53 @@[m
+ package com.vibe_studio.vibe_studio.controller;[m
+ [m
+[32m+[m[32mimport com.vibe_studio.vibe_studio.dto.project.ProjectRequest;[m
+[32m+[m[32mimport com.vibe_studio.vibe_studio.dto.project.ProjectResponse;[m
+[32m+[m[32mimport com.vibe_studio.vibe_studio.dto.project.ProjectSummaryResponse;[m
+[32m+[m[32mimport com.vibe_studio.vibe_studio.service.ProjectService;[m
+[32m+[m[32mimport lombok.RequiredArgsConstructor;[m
+[32m+[m[32mimport org.springframework.http.HttpStatus;[m
+[32m+[m[32mimport org.springframework.http.ResponseEntity;[m
+[32m+[m[32mimport org.springframework.web.bind.annotation.*;[m
+[32m+[m
+[32m+[m[32mimport java.util.List;[m
+[32m+[m
+[32m+[m[32m@RestController[m
+[32m+[m[32m@RequiredArgsConstructor[m
+[32m+[m[32m@RequestMapping("/api/porjects")[m
+[32m+[m
+ public class ProjectController {[m
+[32m+[m
+[32m+[m[32m    private final ProjectService projectService;[m
+[32m+[m[41m    [m
+[32m+[m[32m    @GetMapping[m
+[32m+[m[32m    public ResponseEntity<List<ProjectSummaryResponse>> getUserProjects() {[m
+[32m+[m[32m        Long userId = 1L;[m
+[32m+[m[32m        return  ResponseEntity.ok(projectService.getUserProjects(userId));[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    @GetMapping("/{id}")[m
+[32m+[m[32m    public ResponseEntity<ProjectResponse>getProjectById(@PathVariable Long id) {[m
+[32m+[m[32m        Long userId = 1L;[m
+[32m+[m[32m        return ResponseEntity.ok(projectService.getUserProjectById(id, userId));[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    @PostMapping[m
+[32m+[m[32m    public ResponseEntity<ProjectResponse> createProject(@RequestBody ProjectRequest request) {[m
+[32m+[m[32m        Long userId = 1L;[m
+[32m+[m[32m        return ResponseEntity.status(HttpStatus.CREATED).body(projectService.createProject(request, userId));[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    @PatchMapping[m
+[32m+[m[32m    public ResponseEntity<ProjectResponse> updateProject(@PathVariable Long id, @RequestBody ProjectRequest request) {[m
+[32m+[m[32m        Long userId = 1L;[m
+[32m+[m[32m        return ResponseEntity.ok(projectService.updateProject(id, request, userId));[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    @DeleteMapping("/{id}")[m
+[32m+[m[32m    public ResponseEntity<ProjectResponse> deleteProject(@PathVariable Long id) {[m
+[32m+[m[32m        Long userId = 1L;[m
+[32m+[m[32m        projectService.softDelete(id, userId);[m
+[32m+[m[32m        return ResponseEntity.noContent().build();[m
+[32m+[m[32m    }[m
+[32m+[m
+ }[m
+[1mdiff --git a/src/main/java/com/vibe_studio/vibe_studio/controller/UserController.java b/src/main/java/com/vibe_studio/vibe_studio/controller/UserController.java[m
+[1mindex 290888b..813c816 100644[m
+[1m--- a/src/main/java/com/vibe_studio/vibe_studio/controller/UserController.java[m
+[1m+++ b/src/main/java/com/vibe_studio/vibe_studio/controller/UserController.java[m
+[36m@@ -1,4 +1,5 @@[m
+ package com.vibe_studio.vibe_studio.controller;[m
+ [m
+ public class UserController {[m
+[32m+[m
+ }[m
+[1mdiff --git a/src/main/java/com/vibe_studio/vibe_studio/dto/auth/AuthResponse.java b/src/main/java/com/vibe_studio/vibe_studio/dto/auth/AuthResponse.java[m
+[1mindex add0840..5d805f8 100644[m
+[1m--- a/src/main/java/com/vibe_studio/vibe_studio/dto/auth/AuthResponse.java[m
+[1m+++ b/src/main/java/com/vibe_studio/vibe_studio/dto/auth/AuthResponse.java[m
+[36m@@ -1,5 +1,8 @@[m
+ package com.vibe_studio.vibe_studio.dto.auth;[m
+ [m
+[31m-public record AuthResponse {[m
+[32m+[m[32mpublic record AuthResponse([m
+[32m+[m[32m        String token,[m
+[32m+[m[32m        UserProfileResponse user[m
+[32m+[m[32m) {[m
+ [m
+ }[m
+[1mdiff --git a/src/main/java/com/vibe_studio/vibe_studio/dto/auth/LoginRequest.java b/src/main/java/com/vibe_studio/vibe_studio/dto/auth/LoginRequest.java[m
+[1mindex b600dd0..ed9844a 100644[m
+[1m--- a/src/main/java/com/vibe_studio/vibe_studio/dto/auth/LoginRequest.java[m
+[1m+++ b/src/main/java/com/vibe_studio/vibe_studio/dto/auth/LoginRequest.java[m
+[36m@@ -1,4 +1,7 @@[m
+ package com.vibe_studio.vibe_studio.dto.auth;[m
+ [m
+[31m-public record LoginRequest() {[m
+[32m+[m[32mpublic record LoginRequest([m
+[32m+[m[32m        String email,[m
+[32m+[m[32m        String password[m
+[32m+[m[32m) {[m
+ }[m
+[1mdiff --git a/src/main/java/com/vibe_studio/vibe_studio/dto/auth/SignupRequest.java b/src/main/java/com/vibe_studio/vibe_studio/dto/auth/SignupRequest.java[m
+[1mindex 55998c7..be8747a 100644[m
+[1m--- a/src/main/java/com/vibe_studio/vibe_studio/dto/auth/SignupRequest.java[m
+[1m+++ b/src/main/java/com/vibe_studio/vibe_studio/dto/auth/SignupRequest.java[m
+[36m@@ -1,4 +1,8 @@[m
+ package com.vibe_studio.vibe_studio.dto.auth;[m
+ [m
+[31m-public class SignupRequest {[m
+[32m+[m[32mpublic record SignupRequest([m
+[32m+[m[32m        String email,[m
+[32m+[m[32m        String name,[m
+[32m+[m[32m        String password[m
+[32m+[m[32m) {[m
+ }[m
+[1mdiff --git a/src/main/java/com/vibe_studio/vibe_studio/dto/auth/UserProfileResponse.java b/src/main/java/com/vibe_studio/vibe_studio/dto/auth/UserProfileResponse.java[m
+[1mindex 24c0515..5a7652b 100644[m
+[1m--- a/src/main/java/com/vibe_studio/vibe_studio/dto/auth/UserProfileResponse.java[m
+[1m+++ b/src/main/java/com/vibe_studio/vibe_studio/dto/auth/UserProfileResponse.java[m
+[36m@@ -1,4 +1,9 @@[m
+ package com.vibe_studio.vibe_studio.dto.auth;[m
+ [m
+[31m-public record UserProfileResponse() {[m
+[32m+[m[32mpublic record UserProfileResponse([m
+[32m+[m[32m        Long id,[m
+[32m+[m[32m        String email,[m
+[32m+[m[32m        String name,[m
+[32m+[m[32m        String avatarUrl[m
+[32m+[m[32m) {[m
+ }[m
+[1mdiff --git a/src/main/java/com/vibe_studio/vibe_studio/dto/project/FileContentResponse.java b/src/main/java/com/vibe_studio/vibe_studio/dto/project/FileContentResponse.java[m
+[1mindex 8636301..b1c2d98 100644[m
+[1m--- a/src/main/java/com/vibe_studio/vibe_studio/dto/project/FileContentResponse.java[m
+[1m+++ b/src/main/java/com/vibe_studio/vibe_studio/dto/project/FileContentResponse.java[m
+[36m@@ -1,4 +1,7 @@[m
+ package com.vibe_studio.vibe_studio.dto.project;[m
+ [m
+[31m-public record FileContentResponse() {[m
+[32m+[m[32mpublic record FileContentResponse([m
+[32m+[m[32m        String path,[m
+[32m+[m[32m        String content[m
+[32m+[m[32m) {[m
+ }[m
+[1mdiff --git a/src/main/java/com/vibe_studio/vibe_studio/dto/project/FileNode.java b/src/main/java/com/vibe_studio/vibe_studio/dto/project/FileNode.java[m
+[1mindex 7b28965..16871c5 100644[m
+[1m--- a/src/main/java/com/vibe_studio/vibe_studio/dto/project/FileNode.java[m
+[1m+++ b/src/main/java/com/vibe_studio/vibe_studio/dto/project/FileNode.java[m
+[36m@@ -1,4 +1,11 @@[m
+ package com.vibe_studio.vibe_studio.dto.project;[m
+ [m
+[31m-public record FileNode() {[m
+[32m+[m[32mimport java.time.Instant;[m
+[32m+[m
+[32m+[m[32mpublic record FileNode([m
+[32m+[m[32m        String path,[m
+[32m+[m[32m        Instant modifiedAt,[m
+[32m+[m[32m        Long size,[m
+[32m+[m[32m        String type[m
+[32m+[m[32m) {[m
+ }[m
+[1mdiff --git a/src/main/java/com/vibe_studio/vibe_studio/dto/project/ProjectRequest.java b/src/main/java/com/vibe_studio/vibe_studio/dto/project/ProjectRequest.java[m
+[1mindex 3530a1f..9bd5644 100644[m
+[1m--- a/src/main/java/com/vibe_studio/vibe_studio/dto/project/ProjectRequest.java[m
+[1m+++ b/src/main/java/com/vibe_studio/vibe_studio/dto/project/ProjectRequest.java[m
+[36m@@ -1,4 +1,6 @@[m
+ package com.vibe_studio.vibe_studio.dto.project;[m
+ [m
+[31m-public class ProjectRequest {[m
+[32m+[m[32mpublic record ProjectRequest([m
+[32m+[m[32m        String name[m
+[32m+[m[32m) {[m
+ }[m
+[1mdiff --git a/src/main/java/com/vibe_studio/vibe_studio/dto/project/ProjectResponse.java b/src/main/java/com/vibe_studio/vibe_studio/dto/project/ProjectResponse.java[m
+[1mindex 1f0100c..74a0847 100644[m
+[1m--- a/src/main/java/com/vibe_studio/vibe_studio/dto/project/ProjectResponse.java[m
+[1m+++ b/src/main/java/com/vibe_studio/vibe_studio/dto/project/ProjectResponse.java[m
+[36m@@ -1,4 +1,14 @@[m
+ package com.vibe_studio.vibe_studio.dto.project;[m
+ [m
+[31m-public record ProjectResponse() {[m
+[32m+[m[32mimport com.vibe_studio.vibe_studio.dto.auth.UserProfileResponse;[m
+[32m+[m
+[32m+[m[32mimport java.time.Instant;[m
+[32m+[m
+[32m+[m[32mpublic record ProjectResponse([m
+[32m+[m[32m        Long id,[m
+[32m+[m[32m        String name,[m
+[32m+[m[32m        Instant createdAt,[m
+[32m+[m[32m        Instant updatedAt,[m
+[32m+[m[32m        UserProfileResponse owner[m
+[32m+[m[32m) {[m
+ }[m
+[1mdiff --git a/src/main/java/com/vibe_studio/vibe_studio/dto/project/ProjectSummaryResponse.java b/src/main/java/com/vibe_studio/vibe_studio/dto/project/ProjectSummaryResponse.java[m
+[1mindex 3fbe107..7773b01 100644[m
+[1m--- a/src/main/java/com/vibe_studio/vibe_studio/dto/project/ProjectSummaryResponse.java[m
+[1m+++ b/src/main/java/com/vibe_studio/vibe_studio/dto/project/ProjectSummaryResponse.java[m
+[36m@@ -1,4 +1,12 @@[m
+ package com.vibe_studio.vibe_studio.dto.project;[m
+ [m
+[31m-public class ProjectSummaryResponse {[m
+[32m+[m[32mimport java.time.Instant;[m
+[32m+[m
+[32m+[m[32mpublic record ProjectSummaryResponse([m
+[32m+[m[32m        Long id,[m
+[32m+[m[32m        String name,[m
+[32m+[m[32m        Instant createdAt,[m
+[32m+[m[32m        Instant updatedAt[m
+[32m+[m[32m) {[m
+[32m+[m
+ }[m
+[1mdiff --git a/src/main/java/com/vibe_studio/vibe_studio/entity/ChatMessage.java b/src/main/java/com/vibe_studio/vibe_studio/entity/ChatMessage.java[m
+[1mindex 4606356..2f125d0 100644[m
+[1m--- a/src/main/java/com/vibe_studio/vibe_studio/entity/ChatMessage.java[m
+[1m+++ b/src/main/java/com/vibe_studio/vibe_studio/entity/ChatMessage.java[m
+[36m@@ -1,4 +1,24 @@[m
+ package com.vibe_studio.vibe_studio.entity;[m
+ [m
+[32m+[m[32mimport com.vibe_studio.vibe_studio.enums.MessageRole;[m
+[32m+[m[32mimport lombok.AccessLevel;[m
+[32m+[m[32mimport lombok.Getter;[m
+[32m+[m[32mimport lombok.Setter;[m
+[32m+[m[32mimport lombok.experimental.FieldDefaults;[m
+[32m+[m[32mimport java.time.Instant;[m
+[32m+[m
+[32m+[m[32m@Getter[m
+[32m+[m[32m@Setter[m
+[32m+[m[32m@FieldDefaults(level = AccessLevel.PRIVATE)[m
+[32m+[m
+ public class ChatMessage {[m
+[32m+[m
+[32m+[m[32m    Long id;[m
+[32m+[m[32m    ChatSession chatSession;[m
+[32m+[m[32m    String content;[m
+[32m+[m[32m    MessageRole role;[m
+[32m+[m[32m    String toolCalls; // JSON Array of Tools Called[m
+[32m+[m[32m    Integer tokensUsed;[m
+[32m+[m[32m    Instant createdAt;[m
+[32m+[m
+ }[m
+[1mdiff --git a/src/main/java/com/vibe_studio/vibe_studio/entity/ChatSession.java b/src/main/java/com/vibe_studio/vibe_studio/entity/ChatSession.java[m
+[1mindex 545fc41..3f7f16a 100644[m
+[1m--- a/src/main/java/com/vibe_studio/vibe_studio/entity/ChatSession.java[m
+[1m+++ b/src/main/java/com/vibe_studio/vibe_studio/entity/ChatSession.java[m
+[36m@@ -1,4 +1,2

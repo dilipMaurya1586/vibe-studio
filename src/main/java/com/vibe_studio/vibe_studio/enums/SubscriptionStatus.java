@@ -1,4 +1,5 @@
 package com.vibe_studio.vibe_studio.enums;
 
-public class SubscriptionStatus {
+public enum SubscriptionStatus {
+    ACTIVE, TRIALING, CANCELED, PAST_DUE, INCOMPLETE
 }
