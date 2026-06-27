@@ -4,6 +4,7 @@ import com.vibe_studio.vibe_studio.dto.project.ProjectRequest;
 import com.vibe_studio.vibe_studio.dto.project.ProjectResponse;
 import com.vibe_studio.vibe_studio.dto.project.ProjectSummaryResponse;
 
+
 import java.util.List;
 
 public interface ProjectService {

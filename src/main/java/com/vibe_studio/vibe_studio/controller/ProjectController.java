@@ -37,7 +37,7 @@ public class ProjectController {
         return ResponseEntity.status(HttpStatus.CREATED).body(projectService.createProject(request, userId));
     }
 
-    @PatchMapping
+    @PatchMapping("/{id}")
     public ResponseEntity<ProjectResponse> updateProject(@PathVariable Long id, @RequestBody ProjectRequest request) {
         Long userId = 1L;
         return ResponseEntity.ok(projectService.updateProject(id, request, userId));

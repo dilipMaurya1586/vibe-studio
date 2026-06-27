@@ -2,6 +2,7 @@ package com.vibe_studio.vibe_studio.controller;
 
 import com.vibe_studio.vibe_studio.dto.member.InviteMemberRequest;
 import com.vibe_studio.vibe_studio.dto.member.MemberResponse;
+import com.vibe_studio.vibe_studio.dto.member.UpdateMemberRoleRequest;
 import com.vibe_studio.vibe_studio.entity.ProjectMember;
 import com.vibe_studio.vibe_studio.service.ProjectMemberService;
 import lombok.RequiredArgsConstructor;
@@ -20,13 +21,15 @@ public class ProjectMemberController {
     private final ProjectMemberService projectMemberService;
 
     @GetMapping
-    public ResponseEntity<List<ProjectMember>> getProjectMembers(@PathVariable Long projectId) {
+    public ResponseEntity<List<MemberResponse>> getProjectMembers(@PathVariable Long projectId) {
         Long userId = 1L;
         return ResponseEntity.ok(projectMemberService.getProjectMembers(projectId, userId));
     }
 
     @PostMapping
-    public ResponseEntity<MemberResponse> inviteMember(@PathVariable Long projectId, @RequestBody InviteMemberRequest request) {
+    public ResponseEntity<MemberResponse> inviteMember(
+            @PathVariable Long projectId,
+            @RequestBody InviteMemberRequest request) {
         Long userId = 1L;
         return ResponseEntity.status(HttpStatus.CREATED).body(
                 projectMemberService.inviteMember(projectId, request, userId)
@@ -37,14 +40,14 @@ public class ProjectMemberController {
     public ResponseEntity<MemberResponse> updateMemberRole(
             @PathVariable Long projectId,
             @PathVariable Long memberId,
-            @RequestBody InviteMemberRequest request
+            @RequestBody UpdateMemberRoleRequest request
     ) {
         Long userId = 1L;
         return ResponseEntity.ok(projectMemberService.updateMemberRole(projectId, memberId, request, userId));
     }
 
     @DeleteMapping("/{memberId}")
-    public ResponseEntity<MemberResponse> updateMemberRole(
+    public ResponseEntity<MemberResponse> deleteMember(
             @PathVariable Long projectId,
             @PathVariable Long memberId
     ) {
