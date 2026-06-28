@@ -3,7 +3,6 @@ package com.vibe_studio.vibe_studio.controller;
 import com.vibe_studio.vibe_studio.dto.member.InviteMemberRequest;
 import com.vibe_studio.vibe_studio.dto.member.MemberResponse;
 import com.vibe_studio.vibe_studio.dto.member.UpdateMemberRoleRequest;
-import com.vibe_studio.vibe_studio.entity.ProjectMember;
 import com.vibe_studio.vibe_studio.service.ProjectMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
