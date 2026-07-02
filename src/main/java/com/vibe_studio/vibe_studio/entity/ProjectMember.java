@@ -4,6 +4,7 @@ import com.vibe_studio.vibe_studio.enums.ProjectRole;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
 import java.time.Instant;
 
 @Getter
@@ -14,7 +15,6 @@ import java.time.Instant;
 @NoArgsConstructor
 @Builder
 @Table(name = "project_members")
-
 public class ProjectMember {
 
     @EmbeddedId

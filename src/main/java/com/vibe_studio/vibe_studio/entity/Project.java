@@ -1,12 +1,24 @@
 package com.vibe_studio.vibe_studio.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
-import lombok.experimental.FieldDefaults;
+import java.time.Instant;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.Instant;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
 @Getter
 @Setter
@@ -15,19 +27,19 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "projects")
-
+@Table(name = "projects", indexes = {
+        @Index(name = "idx_projects_updated_at_desc", columnList = "updated_at DESC, deleted_at"),
+        @Index(name = "idx_projects_deleted_at_updated_at_desc", columnList = "deleted_at, updated_at DESC"),
+        @Index(name = "idx_project_deleted_at", columnList = "deleted_at")
+})
 public class Project {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
     String name;
-
-    @ManyToOne
-    @JoinColumn(name="owner_id", nullable=false)
-    User owner;
 
     Boolean isPublic = false;
 
@@ -37,6 +49,5 @@ public class Project {
     @UpdateTimestamp
     Instant updatedAt;
 
-    Instant deletedAt; //soft delete
-
+    Instant deletedAt; // soft delete
 }
