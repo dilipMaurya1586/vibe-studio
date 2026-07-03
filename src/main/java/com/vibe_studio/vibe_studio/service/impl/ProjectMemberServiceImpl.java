@@ -10,6 +10,7 @@ import com.vibe_studio.vibe_studio.mapper.ProjectMemberMapper;
 import com.vibe_studio.vibe_studio.repository.ProjectMemberRepository;
 import com.vibe_studio.vibe_studio.repository.ProjectRepository;
 import com.vibe_studio.vibe_studio.repository.UserRepository;
+import com.vibe_studio.vibe_studio.security.AuthUtil;
 import com.vibe_studio.vibe_studio.service.ProjectMemberService;
 import jakarta.transaction.Transactional;
 import lombok.AccessLevel;

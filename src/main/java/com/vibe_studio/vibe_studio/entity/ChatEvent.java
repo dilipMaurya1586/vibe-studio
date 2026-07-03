@@ -1,5 +1,6 @@
 package com.vibe_studio.vibe_studio.entity;
 
+import com.vibe_studio.vibe_studio.enums.ChatEventType;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
