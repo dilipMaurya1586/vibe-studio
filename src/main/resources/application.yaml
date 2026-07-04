@@ -22,7 +22,8 @@ jwt:
   secret-key: as9b7aodlbjfkluosfd789ujeklfnlsduf90b8ha908w74tuqijvlckajdl
 
 stripe:
-  secret: sk_test_51ReZ5jRl21PQC0VyizRuRUdDKJyTAshaVT96OsZYGMRToQ405xWjw268ycZOQD80048zazwfMT4FUvf0SsuukF8z00FukHYpYs
+  secret: ${STRIPE_SECRET_KEY}
+#  secret: sk_test_51ReZ5jRl21PQC0VyizRuRUdDKJyTAshaVT96OsZYGMRToQ405xWjw268ycZOQD80048zazwfMT4FUvf0SsuukF8z00FukHYpYs
   webhook:
     secret:
 
