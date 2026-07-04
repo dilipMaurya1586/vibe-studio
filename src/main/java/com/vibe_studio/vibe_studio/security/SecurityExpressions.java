@@ -1,6 +1,9 @@
 package com.vibe_studio.vibe_studio.security;
 
+<<<<<<< HEAD
 import com.vibe_studio.vibe_studio.enums.ProjectPermission;
+=======
+>>>>>>> 59723193f0c72b406bce43a6b9fdd3ce1bb40ef3
 import com.vibe_studio.vibe_studio.repository.ProjectMemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
