@@ -4,16 +4,24 @@ import com.vibe_studio.vibe_studio.dto.project.ProjectRequest;
 import com.vibe_studio.vibe_studio.dto.project.ProjectResponse;
 import com.vibe_studio.vibe_studio.dto.project.ProjectSummaryResponse;
 import com.vibe_studio.vibe_studio.entity.Project;
+import com.vibe_studio.vibe_studio.entity.ProjectMember;
+import com.vibe_studio.vibe_studio.entity.ProjectMemberId;
+import com.vibe_studio.vibe_studio.enums.ProjectRole;
 import com.vibe_studio.vibe_studio.error.BadRequestException;
 import com.vibe_studio.vibe_studio.error.ResourceNotFoundException;
 import com.vibe_studio.vibe_studio.mapper.ProjectMapper;
+import com.vibe_studio.vibe_studio.repository.ProjectMemberRepository;
 import com.vibe_studio.vibe_studio.repository.ProjectRepository;
 import com.vibe_studio.vibe_studio.repository.UserRepository;
+import com.vibe_studio.vibe_studio.security.AuthUtil;
 import com.vibe_studio.vibe_studio.service.ProjectService;
+import com.vibe_studio.vibe_studio.service.ProjectTemplateService;
+import com.vibe_studio.vibe_studio.service.SubscriptionService;
 import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.apache.catalina.User;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
@@ -119,3 +127,4 @@ public class ProjectServiceImpl implements ProjectService {
                 .orElseThrow(() -> new ResourceNotFoundException("Project", projectId.toString()));
     }
 }
+

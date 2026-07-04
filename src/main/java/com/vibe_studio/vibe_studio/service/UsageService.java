@@ -3,9 +3,13 @@ package com.vibe_studio.vibe_studio.service;
 import com.vibe_studio.vibe_studio.dto.subscription.PlanLimitsResponse;
 import com.vibe_studio.vibe_studio.dto.subscription.UsageTodayResponse;
 
-public interface UsageService {
+import org.jspecify.annotations.Nullable;
 
-    UsageTodayResponse getTodayUsageOfUser(Long userId);
+public interface UsageService {
+    void recordTokenUsage(Long userId, int actualTokens);
+    void checkDailyTokensUsage();
 
     PlanLimitsResponse getCurrentSubscriptionLimitsOfUser(Long userId);
+
+    UsageTodayResponse getTodayUsageOfUser(Long userId);
 }

@@ -2,7 +2,7 @@ package com.vibe_studio.vibe_studio.mapper;
 
 import com.vibe_studio.vibe_studio.dto.member.MemberResponse;
 import com.vibe_studio.vibe_studio.entity.ProjectMember;
-import org.apache.catalina.User;
+import com.vibe_studio.vibe_studio.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
