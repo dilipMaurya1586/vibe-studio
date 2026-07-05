@@ -58,6 +58,16 @@ public class UsageServiceImpl implements UsageService {
 
     }
 
+    @Override
+    public PlanLimitsResponse getCurrentSubscriptionLimitsOfUser(Long userId) {
+        return null;
+    }
+
+    @Override
+    public UsageTodayResponse getTodayUsageOfUser(Long userId) {
+        return null;
+    }
+
     private UsageLog createNewDailyLog(Long userId, LocalDate date) {
         UsageLog newLog = UsageLog.builder()
                 .userId(userId)

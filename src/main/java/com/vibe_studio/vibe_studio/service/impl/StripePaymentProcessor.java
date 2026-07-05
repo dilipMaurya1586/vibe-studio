@@ -77,6 +77,7 @@ public class StripePaymentProcessor implements PaymentProcessor {
         }
     }
 
+
     @Override
     public PortalResponse openCustomerPortal() {
         Long userId = authUtil.getCurrentUserId();

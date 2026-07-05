@@ -7,13 +7,13 @@ import lombok.experimental.FieldDefaults;
 import java.time.Instant;
 import java.time.LocalDate;
 
+@Getter
+@Setter
 
 @Entity
 @Table(name = "usage_logs", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"user_id", "date"}) // One log per user per day
 })
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
