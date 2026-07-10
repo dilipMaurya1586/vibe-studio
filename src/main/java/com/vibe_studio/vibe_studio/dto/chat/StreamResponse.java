@@ -1,4 +1,3 @@
 package com.vibe_studio.vibe_studio.dto.chat;
 
-public class StreamResponse {
-}
+public record StreamResponse(String text) {}
